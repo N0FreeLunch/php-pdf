@@ -1,0 +1,12 @@
+{
+    "name": "jin/php-pdf",
+    "authors": [
+        {
+            "name": "N0FreeLunch",
+            "email": "consilience90@gmail.com"
+        }
+    ],
+    "require": {
+        "mpdf/mpdf": "^8.0"
+    }
+}

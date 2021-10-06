@@ -52,7 +52,7 @@
 - WKHTMLTOPDF는 오래된 브라우저 엔진을 사용하기 때문에 신뢰할 수 없는 컨텐츠로 PDF를 만들 때 문제가 발생할 여지가 있다. 개선되지 않는 브라우저 엔진을 사용하기 때문에 앞으로도 취약점을 개선할 수 없어 보인다. (https://github.com/wkhtmltopdf/wkhtmltopdf/issues/4368)
 - 취약점 관련 정보 : https://www.virtuesecurity.com/kb/wkhtmltopdf-file-inclusion-vulnerability-2/
 - 신뢰할 수 없는 컨텐츠 없이 코드를 모두 확인하면서 만든다면 문제 없이 잘 사용할 수 있다.
-- 구형 브라우저를 사용하기 때문에 다양한 환경에서의 빌드가 이뤄지지 않을 수 있다.
+- 구형 브라우저를 사용하기 때문에 다양한 서버 환경에서의 구동이 이뤄지지 않을 수 있다. (intel 이외의 CPU)
 
 ### dompdf
 - 라라벨용 패키지를 지원한다. (https://github.com/barryvdh/laravel-dompdf)
@@ -74,4 +74,20 @@
 - TCPDF, mPDF, dompdf
 
 ### 종합적인 판단
-- mPDF가 적당히 쉬우면서 랜더링 결과물(https://peterdev.pl/2019/01/11/picking-a-php-tool-to-generate-pdfs/)을 보았을 때 괜찮은 선택이 될 수도 있음
+- mPDF가 적당히 쉬우면서 랜더링 결과물(https://peterdev.pl/2019/01/11/picking-a-php-tool-to-generate-pdfs)을 보았을 때 괜찮은 선택이 될 수도 있음
+- dompdf는 라라벨 패키지가 있어서 사용이 용이할 것으로 생각 됨
+
+
+### Install mpdf
+```
+sudo apt-get install php-mbstring
+sudo apt-get install php-gd
+```
+
+```
+composer require mpdf/mpdf
+```
+- 만약 버전 호환성 때문에 설치가 되지 않는다면 무시하는 방법이 있다. 좋지는 않아 보임
+```
+composer require mpdf/mpdf --ignore-platform-reqs
+```
