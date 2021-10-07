@@ -77,17 +77,28 @@
 - mPDF가 적당히 쉬우면서 랜더링 결과물(https://peterdev.pl/2019/01/11/picking-a-php-tool-to-generate-pdfs)을 보았을 때 괜찮은 선택이 될 수도 있음
 - dompdf는 라라벨 패키지가 있어서 사용이 용이할 것으로 생각 됨
 
-
+## mpdf
 ### Install mpdf
 ```
 sudo apt-get install php-mbstring
+sudo apt-get install php7.4-gd
+```
+
+```
 sudo apt-get install php-gd
 ```
+- 버전을 붙이지 않으면 mpdf가 제대로 설치가 안 된다.
 
 ```
 composer require mpdf/mpdf
 ```
-- 만약 버전 호환성 때문에 설치가 되지 않는다면 무시하는 방법이 있다. 좋지는 않아 보임
+- 만약 버전 호환성 때문에 설치가 되지 않는다면 무시하는 방법이 있다. 권장하지 않는 방법 (오동작 할 가능성이 높다.)
 ```
 composer require mpdf/mpdf --ignore-platform-reqs
 ```
+
+### mpdf 트러블 이슈
+- https://mpdf.github.io/troubleshooting/slow.html
+> On the other hand, I have used mPDF to produce a 400 page book, complete with a few images, 40 or so small tables, a table of contents and Index in approx 90 secs.
+
+- 위 설명에서 보듯이 mpdf는 느린편이 아니다. 그런데 느리다면 문제가 있는 것. 이미지가 있어야 하는데 없는 경우 이미지를 URL으로 부터 가져오려고 한다. 이미지를 가져오는데 시간이 걸리며 이미지가 없을 경우 이미지를 받을 때까지 기다리며 이미지를 받아 오지 못하기 때문에 타임아웃이 일어날 때까지 기다리게 된다.
