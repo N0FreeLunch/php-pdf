@@ -98,7 +98,14 @@ composer require mpdf/mpdf --ignore-platform-reqs
 ```
 
 ### mpdf 트러블 이슈
+#### 속도가 느릴 경우
 - https://mpdf.github.io/troubleshooting/slow.html
 > On the other hand, I have used mPDF to produce a 400 page book, complete with a few images, 40 or so small tables, a table of contents and Index in approx 90 secs.
 
 - 위 설명에서 보듯이 mpdf는 느린편이 아니다. 그런데 느리다면 문제가 있는 것. 이미지가 있어야 하는데 없는 경우 이미지를 URL으로 부터 가져오려고 한다. 이미지를 가져오는데 시간이 걸리며 이미지가 없을 경우 이미지를 받을 때까지 기다리며 이미지를 받아 오지 못하기 때문에 타임아웃이 일어날 때까지 기다리게 된다.
+
+#### 로컬에서는 문제 없는데 서버에서 500 에러가 나올 때
+- mpdf는 PDF 파일을 만들 때 임시 파일을 만든다. 특별히 지정하지 않으면 라이브러리가 있는 폴더 내의 권한으로 실행이 된다. 컴포저를 통해 설치된 라이브러리가 있는 vendor 폴더는 보안을 폴더 쓰기/수정 권한이 제한된다. 제한 된 권한 때문에 임시 파일을 만들지 못해서 500 에러가 나는 것.
+- vendor의 권한에 쓰기 권한을 주면 되긴 하지만 보안상의 위험성이 존재하므로 임시 파일 라이브러리가 아닌 다른 곳을 지정해서 만들도록 해 줘야 한다.
+- Reference : https://mpdf.github.io/installation-setup/folders-for-temporary-files.html
+> It is advised to set custom temporary directory as the default temporary directory is in composer vendor directory. Permissions must be set for read/write access for the specified path.
